@@ -25,8 +25,11 @@ What you're really curious about though is in the package.json, dockerfile, rout
     * creates a virtual network for them to communicate on
     * defines the ports each service uses and maps them to localhost ports. For example, try changing `3000:3000` to `7500:3000` and when you start docker compose again you will need to access the app on `localhost:7500` instead of `localhost:3000`
     * You can use Mongo Atlas to view the mongo collections and documents, the connection string for it will just be `mongodb://localhost:27017` when the container is running.
-    * `links` is a pretty cool litle thing. See: [https://docs.docker.com/compose/networking/](https://docs.docker.com/compose/networking/) for the truth, but from my understanding it allows you to define multiple hostnames for other containers, here it sort of just slaps it on the same virtual network... or something. IDK maybe it's not needed at all. but if we do ```links:
-        - "mongo:mongodb:database:fuckingdocumentstore"```
+    * `links` is a pretty cool litle thing. See: [https://docs.docker.com/compose/networking/](https://docs.docker.com/compose/networking/) for the truth, but from my understanding it allows you to define multiple hostnames for other containers, here it sort of just slaps it on the same virtual network... or something. IDK maybe it's not needed at all. but if we do 
+    ```yaml
+    links:
+      - "mongo:mongodb:database:fuckingdocumentstore"
+    ```
     then we could use any one of those as hostnames to reach our mongo container from the visitor-count app.
     * `build: .` will build the container if it's not found on your machine. You can just `docker-compose up` without running a docker build command first.
     * mongo volume: Here I map a directory in this project directory on your host machine called `data` to a directory at path /data/db inside the running mongo container. This is how the database persists between runs. Try it out. Start the application, go to the /visitors routes a few times. Stop the application. Start it again. Visit the route. The counter will resume where it left off at the previous section. Now, delete the `data` directory inside this project directory. Start the app again. You're back at your first visit. Congradulations, you just lost data!
