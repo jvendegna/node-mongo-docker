@@ -1,0 +1,25 @@
+{
+  "name": "node-mongo-docker",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www",
+    "mongo": "docker run --rm -it -d -p 27017:27017 mongo:5.0.12",
+    "docker:build": "docker build -t visitorcount:local .",
+    "compose:up": "docker-compose up",
+    "detatched": "docker-compose up -d",
+    "compose:down": "docker-compose down"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^6.6.0",
+    "morgan": "~1.9.1",
+    "pug": "^3.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
